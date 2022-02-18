@@ -1,0 +1,122 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "8xp",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#variables"
+    },
+    {
+      "include": "#arithmetics"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.8xp",
+          "match": "\\b(If|Then|Else|For|While|Repeat|End|Pause|Lbl|Goto|Wait|IS>|DS<|Menu|prgm|Return|Stop|DelVar|GraphStyle|GraphColor|OpenLib|ExecLib)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.8xp",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.8xp",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "captures": {
+            "1": {
+              "name": "support.function.builtin.8xp"
+            }
+          },
+          "match": "\\b(Input|Prompt|Disp|DispGraph|DispTable)\\b"
+        },
+        {
+          "name": "entity.name.function.8xp",
+          "match": "\\b(abs|and|angle|ANOVA|Ans|Archive|Asm|AsmComp|AsmPrgm|augment|AxesOff|AxesOn|a\\+bi|bal|binomcdf|binompdf|Boxplot|checkTmr|x2cdf|x2pdf|x2\\-Test|Circle|Clear|ClockOff|ClockOn|ClrAllLists|ClrDraw|ClrHome|ClrList|ClrTable|conj|Connected|CoordOff|CoordOn|cos|cos\\-1|cosh|cosh\\-1|CubicReg|cumSum|dayOfWk|dbd|▶Dec|Degree|DependAsk|DependAuto|det|DiagnosticOff|DiagnosticOn|dim|Disp|DispGraph|DispTable|▶DMS|Dot|DrawF|DrawInv|e|e\\^|E|▶Eff|Eng|Equ▶String|expr|ExprOff|ExprOn|Fcdf|Fill|Fix|Float|fMax|fMin|fnInt|FnOff|FnOn|fPart|Fpdf|▶Frac|Full|Func|GarbageCollect|gcd|geometcdf|geometpdf|Get|GetCalc|GetDate|getDtFmt|getDtStr|GetTime|getTmFmt|getTmStr|getKey|GridOff|GridOn|G\\-T|Histogram|Horiz|Horizontal|i|identity|imag|IndpntAsk|IndpntAuto|Input|inString|int|ΣInt|intersect|invNorm|iPart|irr|isClockOn|L|LabelOff|LabelOn|lcm|length|Line|LinReg|LinReg|LinRegTTest|∆List|List▶matr|ln|LnReg|log|Logistic|Matr▶list|max|mean|median|Med\\-Med|min|ModBoxplot|nCr|nDeriv|▶Nom|Normal|normalcdf|normalpdf|NormProbPlot|not|nPr|npv|or|Output|Param|Plot1|Plot2|Plot3|PlotsOff|PlotsOn|Pmt_Bgn|Pmt_End|poissoncdf|poissonpdf|Polar|▶Polar|PolarGC|∑Prn|prod|Prompt|1\\-PropZInt|2\\-PropZInt|1\\-PropZTest|2\\-PropZTest|Pt\\-Change|Pt\\-Off|Pt\\-On|PwrReg|Pxl\\-Change|Pxl\\-Off|Pxl\\-On|Pxl\\-Test|P▶Rx|P▶Ry|QuadReg|QuartReg|Radian|rand|randBin|randInt|randM|randNorm|re\\^θi|Real|real|RecallGDB|RecallPic|▶Rect|RectGC|ref|round|\\*row|row|row\\+|\\*row\\+|row\\+|rowSwap|rref|R▶Pr|R▶Pθ|2\\-SampFTest|2\\-SampTInt|2\\-SampTTest|2\\-SampZInt|2\\-SampZTest|Scatter|Sci|Select|Send|seq|Seq|Sequential|setDate|setDtFmt|setTime|setTmFmt|SetUpEditor|Shade|Shadex2|ShadeF|ShadeNorm|Shade_t|Simul|sin|sin\\-1|sinh|sinh\\-1|SinReg|solve|SortA|SortD|startTmr|stdDev|StoreGDB|StorePic|String►Equ|sub|sum|tan|tan\\-1|Tangent|tanh|tanh\\-1|tcdf|Text|Time|timeCnv|TInterval|tpdf|T\\-Test|tmv_FV|tmv_I%|tmv_N|tmv_Pmt|tmv_PV|UnArchive|uvAxes|uwAxes|1\\-Var|2\\-Var|variance|Vertical|vwAxes|Web|xor|xyLine|ZBox|ZDecimal|ZInteger|ZInterval|Zoom|Zoom|ZoomFit|ZoomRcl|ZoomStat|ZoomSto|ZPrevious|ZSquare|ZStandard|Z\\-Test|ZTrig)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric",
+          "match": "\\b(\\d+\\.?\\d*|\\.\\d+)\\b"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b([A-Z]|θ|u|v|w)\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(L[1-6])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(Str[0-9])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b([[A-J]])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(Pic[0-9])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(GDB[0-9])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(Image[0-9])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(Y[0-9])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(r[1-6])\\b"
+        },
+        {
+          "name": "variable.name.8xp",
+          "match": "\\b(BLUE|RED|BLACK|MAGENTA|GREEN|ORANGE|BROWN|NAVY|LTBLUE|YELLOW|LTGRAY|MEDGREY|GRAY|DARKGRAY)\\b"
+        }
+      ]
+    },
+    "arithmetics": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.8xp",
+          "match": "\\+|-|\\*|/|\\^|\\√\\((.*)\\)"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.8xp"
+}

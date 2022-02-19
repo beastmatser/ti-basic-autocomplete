@@ -14,8 +14,9 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: npm install
-        run: npm install -g vsce
+        run: |
+          npm install
+          npm install -g vsce
       - name: Publish
       - uses: lannonbr/vsce-action@3.0.0
         with:

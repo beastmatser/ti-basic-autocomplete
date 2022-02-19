@@ -9,17 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: Install dependencies
-        run: |
-          npm install
-          npm --prefix ./client install ./client
-          npm --prefix ./server install ./server
-          npm install -g vsce
-      - name: Publish
+      - run: npm install
       - uses: lannonbr/vsce-action@3.0.0
         with:
           args: "publish -p $PUBLISH_TOKEN"

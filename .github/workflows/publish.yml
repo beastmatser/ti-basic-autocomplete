@@ -17,6 +17,7 @@ jobs:
         run: |
           npm install
           npm --prefix ./client install ./client
+          npm --prefix ./server install ./server
           npm install -g vsce
       - name: Publish
       - uses: lannonbr/vsce-action@3.0.0

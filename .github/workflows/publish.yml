@@ -16,4 +16,5 @@ jobs:
       - name: Install dependencies
         run: npm install -g vsce
       - name: Publish
-        run: vsce publish -p ${{ secrets.PUBLISH_TOKEN }}
+        run: echo "{PUBLISH_TOKEN}={${{secrets.PUBLISH_TOKEN}}}" >> $GITHUB_ENV
+          vsce publish -p $PUBLISH_TOKEN

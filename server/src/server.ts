@@ -129,29 +129,71 @@ documents.onDidClose((e) => {
   documentSettings.delete(e.document.uri);
 });
 
+function fillDiagnostics(
+  diagnostics: Diagnostic[],
+  textDocument: TextDocument,
+  pattern: RegExp,
+  severity: DiagnosticSeverity,
+  message: string
+): Diagnostic[] {
+  const text = textDocument.getText();
+  let m: RegExpExecArray | null;
+  while ((m = pattern.exec(text))) {
+    const diagnostic: Diagnostic = {
+      severity: severity,
+      range: {
+        start: textDocument.positionAt(m.index),
+        end: textDocument.positionAt(m.index + m[0].length),
+      },
+      message: message,
+      source: "ex",
+    };
+    diagnostics.push(diagnostic);
+  }
+  return diagnostics;
+}
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(async (change) => {
   const textDocument = change.document;
-  // In this simple example we get the settings for every validate run.
-  const settings = await getDocumentSettings(textDocument.uri);
   // The validator creates diagnostics for all uppercase words length 2 and more
   const text = textDocument.getText();
-  const pattern = /\b\s[>|<|+|\-|*|→|≤|≥|≠]\s\b/g;
+  const pattern = /\b\s?[>|<|+|\-|*|→|≤|≥|≠|,]\s\b/g;
   let m: RegExpExecArray | null;
 
-  let problems = 0;
-  const diagnostics: Diagnostic[] = [];
-  while ((m = pattern.exec(text)) && problems < 1000) {
-    console.log(m);
-    problems++;
+  let diagnostics: Diagnostic[] = [];
+  diagnostics = fillDiagnostics(
+    diagnostics,
+    textDocument,
+    /\b\s?[>|<|+|\-|*|→|≤|≥|≠|,]\s\b/g,
+    DiagnosticSeverity.Error,
+    "This operator cannot be surrounded by whitespaces"
+  );
+  diagnostics = fillDiagnostics(
+    diagnostics,
+    textDocument,
+    /\b\s[>|<|+|\-|*|→|≤|≥|≠|,]\s?\b/g,
+    DiagnosticSeverity.Error,
+    "This operator cannot be surrounded by whitespaces"
+  );
+
+  const keywords =
+    text.split("While").length -
+    1 +
+    text.split("If").length -
+    1 +
+    text.split("For").length -
+    1;
+  const ends = text.split("End").length - 1;
+  if (keywords > ends) {
     const diagnostic: Diagnostic = {
       severity: DiagnosticSeverity.Error,
       range: {
-        start: textDocument.positionAt(m.index - 1),
-        end: textDocument.positionAt(m.index + m[0].length + 1),
+        start: textDocument.positionAt(0),
+        end: textDocument.positionAt(0),
       },
-      message: `${m[0]} is surrounded by spaces.`,
+      message:
+        "An If, While or For statement must be closed by an End statement",
       source: "ex",
     };
     diagnostics.push(diagnostic);
@@ -205,7 +247,9 @@ connection.onCompletion(
       {
         label: "abs",
         kind: CompletionItemKind.Function,
-        documentation: "Docs for abs!",
+        documentation:
+          "Returns the absolute value of a real number, expression, list, or matrix.",
+        detail: "MATH:NUM:1:ABS",
       },
       { label: "and", kind: CompletionItemKind.Function },
       { label: "angle", kind: CompletionItemKind.Function },
